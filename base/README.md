@@ -1,6 +1,6 @@
 # 学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~
 
-![ce0949d32c09d9cfe0a33306ed85a0e5](https://i.gyazo.com/ce0949d32c09d9cfe0a33306ed85a0e5.png)
+![7f287b1dd7b12f6e97537c8112fcb13c](https://i.gyazo.com/7f287b1dd7b12f6e97537c8112fcb13c.png)
 
 このページは 学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~ のトップページです。
 
