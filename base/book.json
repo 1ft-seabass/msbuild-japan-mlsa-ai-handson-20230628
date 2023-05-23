@@ -1,6 +1,6 @@
 {
-  "title":"Azure Functions でつくる LINE Bot + OpenAI 社 ChatGPT AI ハンズオン",
-  "description":"Azure Functions でつくる LINE Bot + OpenAI 社 ChatGPT AI ハンズオン",
+  "title":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~",
+  "description":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~",
   "language":"ja",
   "plugins":[
     "anchors",

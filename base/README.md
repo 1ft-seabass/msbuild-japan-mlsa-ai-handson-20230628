@@ -1,8 +1,8 @@
-# Azure Functions でつくる LINE Bot + OpenAI 社 ChatGPT AI ハンズオン
+# 学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~
 
 ![ce0949d32c09d9cfe0a33306ed85a0e5](https://i.gyazo.com/ce0949d32c09d9cfe0a33306ed85a0e5.png)
 
-このページは Azure Functions でつくる LINE Bot + OpenAI 社 ChatGPT AI ハンズオンのトップページです。
+このページは 学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~ のトップページです。
 
 ## 事前準備
 
@@ -19,6 +19,27 @@
 ## サポートスタッフご紹介
 
 （調整中）
+
+![](images/miyagawa.jpg)
+
+宮川　慎也（ミヤガワ　シンヤ）  
+https://shinyame.github.io/
+
+![](images/takaya.jpg)
+
+高矢 空（タカヤ ソラ）  
+https://takayasora.com/
+
+![](images/takeuchi.jpg)
+
+竹内 雅樹 (タケウチ マサキ)  
+https://news.microsoft.com/ja-jp/features/regain-your-voice-with-the-power-of-ai/
+
+<img src="https://i.gyazo.com/0116e8a74666ace1a45096ae02b54347.jpg" alt="Image from Gyazo" width="200"/>
+
+田中正吾 (タナカ セイゴ)  
+https://www.1ft-seabass.jp/
+
 
 ## 当日の流れ
 
