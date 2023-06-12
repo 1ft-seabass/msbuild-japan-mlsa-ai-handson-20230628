@@ -5,12 +5,12 @@
         <meta charset="UTF-8">
         <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# article: https://ogp.me/ns/article#"></head>
         <meta property="og:type" content="article">
-        <meta property="og:url" content="07-line-bot-add-chatgpt.html">
+        <meta property="og:url" content="09-chatgpt-check.html">
         <meta property="og:image" content="https://i.gyazo.com/7f287b1dd7b12f6e97537c8112fcb13c.png">
-        <meta property="og:title" content="[学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~] ChatGPT API の仕組みの反映">
+        <meta property="og:title" content="[学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~] LINE Bot で ChatGPT 応答を試す">
         <meta property="og:description" content="学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~">
         <meta property="og:locale" content="ja">
-        <title>[学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~] ChatGPT API の仕組みの反映</title>
+        <title>[学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~] LINE Bot で ChatGPT 応答を試す</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~">
         <meta name="generator" content="HonKit 3.7.4">
@@ -75,10 +75,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="08-chatgpt-check.html" />
+    <link rel="next" href="99-extra/98-troubleshooting.html" />
     
     
-    <link rel="prev" href="06-line-bot-check.html" />
+    <link rel="prev" href="08-line-bot-add-chatgpt.html" />
     
 
     </head>
@@ -256,9 +256,22 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.9" data-path="07-line-bot-add-chatgpt.html">
+        <li class="chapter " data-level="1.9" data-path="07-create-http-trigger-for-chatgpt.html">
             
-                <a href="07-line-bot-add-chatgpt.html">
+                <a href="07-create-http-trigger-for-chatgpt.html">
+            
+                    
+                    ChatGPT 用 LINE Bot 用の HTTP トリガー作成
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" data-path="08-line-bot-add-chatgpt.html">
+            
+                <a href="08-line-bot-add-chatgpt.html">
             
                     
                     ChatGPT API の仕組みの反映
@@ -269,9 +282,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.10" data-path="08-chatgpt-check.html">
+        <li class="chapter active" data-level="1.11" data-path="09-chatgpt-check.html">
             
-                <a href="08-chatgpt-check.html">
+                <a href="09-chatgpt-check.html">
             
                     
                     LINE Bot で ChatGPT 応答を試す
@@ -282,7 +295,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.11" data-path="99-extra/98-troubleshooting.html">
+        <li class="chapter " data-level="1.12" data-path="99-extra/98-troubleshooting.html">
             
                 <a href="99-extra/98-troubleshooting.html">
             
@@ -295,7 +308,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="99-extra/99-extra-index.html">
+        <li class="chapter " data-level="1.13" data-path="99-extra/99-extra-index.html">
             
                 <a href="99-extra/99-extra-index.html">
             
@@ -338,7 +351,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >ChatGPT API の仕組みの反映</a>
+        <a href="." >LINE Bot で ChatGPT 応答を試す</a>
     </h1>
 </div>
 
@@ -353,111 +366,11 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="chatgpt-api-の仕組みの反映"><a name="chatgpt-api-の仕組みの反映" class="plugin-anchor" href="#chatgpt-api-の仕組みの反映"><i class="fa fa-link" aria-hidden="true"></i></a>ChatGPT API の仕組みの反映</h1>
-<p>コードとテストに戻ります。</p>
-<p><img src="https://i.gyazo.com/17ac6ce60f75b9d7733257cfb12368e8.png" alt="17ac6ce60f75b9d7733257cfb12368e8"></p>
-<p>コードエディタのコードをすべて選択して以下のコードで上書きします。</p>
-<pre><code class="lang-js"><span class="hljs-comment">// LINE Bot SDK ライブラリの読み込み</span>
-<span class="hljs-keyword">const</span> line = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@line/bot-sdk&apos;</span>);
-
-<span class="hljs-comment">// チャンネルアクセストークンとチャネルシークレット設定</span>
-<span class="hljs-keyword">const</span> configLINE = {
-    <span class="hljs-attr">channelAccessToken</span>: <span class="hljs-string">&apos;channelAccessToken&apos;</span>,
-    <span class="hljs-attr">channelSecret</span>:  <span class="hljs-string">&apos;channelSecret&apos;</span>,
-};
-
-<span class="hljs-comment">// LINE Bot SDK ライブラリを呼び出しつつ設定</span>
-<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> line.Client(configLINE);
-
-<span class="hljs-comment">// OpenAI ライブラリを読み込む</span>
-<span class="hljs-keyword">const</span> { Configuration, OpenAIApi } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;openai&quot;</span>);
-
-<span class="hljs-comment">// OpenAI の ChatGPT API の API キー設定</span>
-<span class="hljs-keyword">const</span> configOpenAI = {
-    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">&apos;apiKey&apos;</span>,
-};
-
-<span class="hljs-comment">// OpenAI ライブラリを呼び出しつつ設定</span>
-<span class="hljs-keyword">const</span> configuration = <span class="hljs-keyword">new</span> Configuration(configOpenAI);
-<span class="hljs-keyword">const</span> openai = <span class="hljs-keyword">new</span> OpenAIApi(configuration);
-
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context, req</span>) </span>{
-    context.log(<span class="hljs-string">&apos;LINE Bot start...&apos;</span>);
-    <span class="hljs-keyword">if</span> (req.query.message || (req.body &amp;&amp; req.body.events)) {
-        <span class="hljs-keyword">if</span> (req.body &amp;&amp; req.body.events[<span class="hljs-number">0</span>]) {
-            <span class="hljs-comment">// 今回の質問</span>
-            <span class="hljs-keyword">const</span> currentMesssage = req.body.events[<span class="hljs-number">0</span>].message.text;
-            context.log(currentMesssage);
-            <span class="hljs-comment">// ChatGPT API に質問する</span>
-            <span class="hljs-keyword">let</span> responseChatGPT;
-            <span class="hljs-keyword">try</span> {
-                responseChatGPT = <span class="hljs-keyword">await</span> openai.createChatCompletion({
-                    <span class="hljs-attr">model</span>: <span class="hljs-string">&quot;gpt-3.5-turbo&quot;</span>,
-                    <span class="hljs-attr">messages</span>: [
-                        {<span class="hljs-attr">role</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-attr">content</span>: currentMesssage}
-                    ],
-                });
-                context.log(responseChatGPT.data.choices[<span class="hljs-number">0</span>].message);
-            } <span class="hljs-keyword">catch</span>(e){
-                context.log(e);
-            }
-            <span class="hljs-comment">// 実際に LINE に返答する処理</span>
-            <span class="hljs-keyword">if</span> (req.body.events[<span class="hljs-number">0</span>].replyToken) {
-                <span class="hljs-comment">// 返答の 0 番目を取得</span>
-                <span class="hljs-keyword">const</span> contentFromChatGPT = responseChatGPT.data.choices[<span class="hljs-number">0</span>].message.content;
-                <span class="hljs-comment">// 返答</span>
-                client.replyMessage(req.body.events[<span class="hljs-number">0</span>].replyToken, {
-                    <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;text&quot;</span>,
-                    <span class="hljs-string">&quot;text&quot;</span>: contentFromChatGPT
-                });
-            }
-        } <span class="hljs-keyword">else</span> {
-            context.res = {
-                <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-                <span class="hljs-attr">body</span>: req.query.message
-            };
-        }
-    }
-    <span class="hljs-keyword">else</span> {
-        <span class="hljs-comment">// LINE 以外のアクセスだとこちらを返信（ブラウザ確認用）</span>
-        context.res = {
-            <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-            <span class="hljs-attr">body</span>: <span class="hljs-string">&quot;Hello! ChatGPT + LINE Bot + Azure Functions!&quot;</span>
-        };
-    };
-};
-</code></pre>
-<p>上書きできたら、LINE Bot と ChatGPT の設定を反映します。</p>
-<pre><code class="lang-js"><span class="hljs-comment">// チャンネルアクセストークンとチャネルシークレット設定</span>
-<span class="hljs-keyword">const</span> configLINE = {
-    <span class="hljs-attr">channelAccessToken</span>: <span class="hljs-string">&apos;channelAccessToken&apos;</span>,
-    <span class="hljs-attr">channelSecret</span>:  <span class="hljs-string">&apos;channelSecret&apos;</span>,
-};
-</code></pre>
-<p>こちらに注目します。</p>
-<pre><code class="lang-js">channelAccessToken: <span class="hljs-string">&apos;channelAccessToken&apos;</span>,
-</code></pre>
-<p><code>&apos;channelAccessToken&apos;</code> のところのシングルクオーテーションの中を、今回動かしたい LINE Bot のチャネルアクセストークンに書き換えます。</p>
-<p>もし、チャネルアクセストークンが <code>ABCDEFG</code> の場合は、両脇のシングルクオーテーションを
-残して書き換えるので <code>&apos;ABCDEFG&apos;</code> になります。</p>
-<pre><code class="lang-js">channelSecret:  <span class="hljs-string">&apos;channelSecret&apos;</span>,
-</code></pre>
-<p><code>&apos;channelSecret&apos;</code> のところのシングルクオーテーションの中を、今回動かしたい LINE Bot のチャネルシークレットに書き換えます。</p>
-<p>もし、チャネルシークレットが <code>12345678</code> の場合は、両脇のシングルクオーテーションを
-残して書き換えるので <code>&apos;12345678&apos;</code> になります。</p>
-<pre><code class="lang-js"><span class="hljs-comment">// OpenAI の ChatGPT API の API キー設定</span>
-<span class="hljs-keyword">const</span> configOpenAI = {
-    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">&apos;apiKey&apos;</span>,
-};
-</code></pre>
-<p>こちらに注目します。</p>
-<pre><code class="lang-js">apiKey: <span class="hljs-string">&apos;apiKey&apos;</span>,
-</code></pre>
-<p><code>&apos;apiKey&apos;</code> のところのシングルクオーテーションの中を、今回メモしてある ChatGPT API の API キーに書き換えます。</p>
-<p>もし、ChatGPT API の API キーが <code>ABCDEFG</code> の場合は、両脇のシングルクオーテーションを
-残して書き換えるので <code>&apos;ABCDEFG&apos;</code> になります。</p>
-<p><img src="https://i.gyazo.com/d6e5648f3a0abbdcf4c53a3a968ca40f.png" alt="d6e5648f3a0abbdcf4c53a3a968ca40f"></p>
-<p>設定できたらコードを保存します。</p>
+                                <h1 id="line-bot-で-chatgpt-応答を試す"><a name="line-bot-で-chatgpt-応答を試す" class="plugin-anchor" href="#line-bot-で-chatgpt-応答を試す"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Bot で ChatGPT 応答を試す</h1>
+<p>今回のプログラムでは、メッセージに対して ChatGPT から返答してくれます！</p>
+<p><img src="https://i.gyazo.com/006f7b52f5bd860c643bcad06095ddcb.jpg" alt="006f7b52f5bd860c643bcad06095ddcb"></p>
+<p>今回の LINE Bot にスマートフォンの LINE アプリで表示して、メッセージを送ってみましょう！</p>
+<p>うまくChatGPT から返答されるはずです！</p>
 
                                 
                                 </section>
@@ -485,12 +398,12 @@
 
             
                 
-                <a href="06-line-bot-check.html" class="navigation navigation-prev " aria-label="Previous page: LINE Bot でオウム返しを試す">
+                <a href="08-line-bot-add-chatgpt.html" class="navigation navigation-prev " aria-label="Previous page: ChatGPT API の仕組みの反映">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="08-chatgpt-check.html" class="navigation navigation-next " aria-label="Next page: LINE Bot で ChatGPT 応答を試す">
+                <a href="99-extra/98-troubleshooting.html" class="navigation navigation-next " aria-label="Next page: トラブルシューティング">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -501,7 +414,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"ChatGPT API の仕組みの反映","level":"1.9","depth":1,"next":{"title":"LINE Bot で ChatGPT 応答を試す","level":"1.10","depth":1,"path":"08-chatgpt-check.md","ref":"08-chatgpt-check.md","articles":[]},"previous":{"title":"LINE Bot でオウム返しを試す","level":"1.8","depth":1,"path":"06-line-bot-check.md","ref":"06-line-bot-check.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~","language":"ja","gitbook":"*","description":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~"},"file":{"path":"07-line-bot-add-chatgpt.md","mtime":"2023-05-22T13:30:01.681Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-12T07:10:53.260Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"LINE Bot で ChatGPT 応答を試す","level":"1.11","depth":1,"next":{"title":"トラブルシューティング","level":"1.12","depth":1,"path":"99-extra/98-troubleshooting.md","ref":"99-extra/98-troubleshooting.md","articles":[]},"previous":{"title":"ChatGPT API の仕組みの反映","level":"1.10","depth":1,"path":"08-line-bot-add-chatgpt.md","ref":"08-line-bot-add-chatgpt.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~","language":"ja","gitbook":"*","description":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~"},"file":{"path":"09-chatgpt-check.md","mtime":"2023-05-22T13:31:37.201Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-12T07:52:52.463Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
