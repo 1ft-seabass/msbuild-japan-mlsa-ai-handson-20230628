@@ -16,9 +16,12 @@
 
 （調整中）
 
-## サポートスタッフご紹介
+高矢 空（タカヤ ソラ）  
+https://takayasora.com/
 
-（調整中）
+<img src="https://media.licdn.com/dms/image/C5603AQHjP6iMBogT2w/profile-displayphoto-shrink_800_800/0/1645355227394?e=2147483647&v=beta&t=5hkQpQ1fiDhJ9xK1F0wjywMKrIuJT-uwF46q38liS6E" width="60%">
+
+## サポートスタッフご紹介
 
 <img src="https://news.mynavi.jp/techplus/article/techp3634/images/0412IPA_006-thumb-600xauto-18416.jpg" width="60%">
 
@@ -43,25 +46,22 @@ https://www.1ft-seabass.jp/
 
 ## 当日の流れ
 
-MM/DD 曜日　HH:MM-HH:MM
+6/28 水曜日　14:15-15:45
 
-- HH:MM-HH:MM
+- 14:15-14:25
   - はじめに
-- HH:MM-HH:MM
-  - 1
-  - 2
-  - 3
-- HH:MM-HH:MM
-  - 1
-  - 2
-  - 3
-- HH:MM-HH:MM
-  - 休憩
-- HH:MM-HH:MM
-  - 1
-  - 2
-  - 3
-- HH:MM-HH:MM
+- 14:25-14:40
+  - Azure Functions の作成
+  - LINE Bot 用の HTTP トリガー作成
+  - 必要ライブラリのインストール
+- 14:40-14:55
+  - LINE Bot に設定を反映
+  - LINE Bot でオウム返しを試す
+- 14:55-15:20
+  - ChatGPT 用 LINE Bot 用の HTTP トリガー作成
+  - ChatGPT API の仕組みの反映
+  - LINE Bot で ChatGPT 応答を試す
+- 15:20-15:45
   - 質疑応答
   - おわりに
 
