@@ -73,6 +73,14 @@ https://www.1ft-seabass.jp/
 
 → [はじめに](01-introduction.md)
 
+## アンケートよろしくお願いします！
+
+![cceb4a90e68736d1e902267bf13ba2ae](https://i.gyazo.com/cceb4a90e68736d1e902267bf13ba2ae.png)
+
+↑ QR コードでもアクセス可能です
+
+→ [アンケートリンク](https://docs.google.com/forms/d/e/1FAIpQLSdDGHDnA-0HG1Ywb5Y00rPrwQlk5HFLl0FCrOvhJAtfjWOcgw/viewform)
+
 ## お疲れ様でした
 
 ![image](https://i.gyazo.com/5a6aa1d064fcd403fa67091c7d0e417a.png)
