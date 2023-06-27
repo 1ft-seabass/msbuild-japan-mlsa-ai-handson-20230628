@@ -14,14 +14,12 @@
 
 ## 講師紹介
 
-（調整中）
-
 <img src="https://media.licdn.com/dms/image/D5603AQFyM8BbshApEA/profile-displayphoto-shrink_800_800/0/1681583246561?e=2147483647&v=beta&t=yvLYD92tKiIEWzRxcoG258SiBCGF8r9BcgIK9Z-lzyQ" width="60%">
 
 高矢 空（タカヤ ソラ）  
 https://takayasora.com/
 
-## サポートスタッフご紹介
+## サポートスタッフ紹介
 
 <img src="https://news.mynavi.jp/techplus/article/techp3634/images/0412IPA_006-thumb-600xauto-18416.jpg" width="60%">
 
