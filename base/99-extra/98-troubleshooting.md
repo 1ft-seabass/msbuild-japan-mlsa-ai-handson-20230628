@@ -44,4 +44,13 @@ Application Insights に接続しています... となります。待ちます�
 
 などがあります。
 
+## 資料リンク
+
+- LINE Developers
+  - https://developers.line.biz/ja/
+- OpenAI API Key
+  - https://platform.openai.com/account/api-keys
+- Azure ポータル
+  - https://azure.microsoft.com/free
+
 （なにかあれば更新中）
