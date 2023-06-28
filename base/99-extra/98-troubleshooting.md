@@ -44,7 +44,7 @@ Application Insights に接続しています... となります。待ちます�
 
 などがあります。
 
-## 資料リンク
+## アカウントリンク
 
 - LINE Developers
   - https://developers.line.biz/ja/
