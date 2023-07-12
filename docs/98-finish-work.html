@@ -5,12 +5,12 @@
         <meta charset="UTF-8">
         <head prefix="og: https://ogp.me/ns# fb: https://ogp.me/ns/fb# article: https://ogp.me/ns/article#"></head>
         <meta property="og:type" content="article">
-        <meta property="og:url" content="05-line-bot-setting.html">
+        <meta property="og:url" content="98-finish-work.html">
         <meta property="og:image" content="https://i.gyazo.com/7f287b1dd7b12f6e97537c8112fcb13c.png">
-        <meta property="og:title" content="[学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~] LINE Bot に設定を反映">
+        <meta property="og:title" content="[学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~] あとかたづけ">
         <meta property="og:description" content="学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~">
         <meta property="og:locale" content="ja">
-        <title>[学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~] LINE Bot に設定を反映</title>
+        <title>[学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~] あとかたづけ</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~">
         <meta name="generator" content="HonKit 3.7.4">
@@ -75,10 +75,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="06-line-bot-check.html" />
+    <link rel="next" href="99-extra/98-troubleshooting.html" />
     
     
-    <link rel="prev" href="04-linebot-and-openai-install.html" />
+    <link rel="prev" href="09-chatgpt-check.html" />
     
 
     </head>
@@ -230,7 +230,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.7" data-path="05-line-bot-setting.html">
+        <li class="chapter " data-level="1.7" data-path="05-line-bot-setting.html">
             
                 <a href="05-line-bot-setting.html">
             
@@ -295,7 +295,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.12" data-path="98-finish-work.html">
+        <li class="chapter active" data-level="1.12" data-path="98-finish-work.html">
             
                 <a href="98-finish-work.html">
             
@@ -364,7 +364,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >LINE Bot に設定を反映</a>
+        <a href="." >あとかたづけ</a>
     </h1>
 </div>
 
@@ -379,104 +379,30 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="line-bot-に設定を反映"><a name="line-bot-に設定を反映" class="plugin-anchor" href="#line-bot-に設定を反映"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Bot に設定を反映</h1>
-<p><img src="https://i.gyazo.com/499d1894b011ecfea61759c11c6ea1e4.png" alt="499d1894b011ecfea61759c11c6ea1e4"></p>
-<p>LINE Bot と Functions がやりとりできるように LINE Messaging API に Functions でつくったメッセージサーバの URL を教えてあげて、実際にやり取りできるようにします。</p>
-<p><img src="https://i.gyazo.com/3090f8720206e665a1066d347a87e7d8.png" alt="3090f8720206e665a1066d347a87e7d8"></p>
-<p>左メニューから「関数」をクリックして、関数の一覧が表示されるので、さきほど作成した HttpTrigger1 をクリックします。</p>
-<p><img src="https://i.gyazo.com/d7204f976ab82a62a8b2fded5069c77b.png" alt="d7204f976ab82a62a8b2fded5069c77b"></p>
-<p>コードとテストをクリックします。</p>
-<p><img src="https://i.gyazo.com/17ac6ce60f75b9d7733257cfb12368e8.png" alt="17ac6ce60f75b9d7733257cfb12368e8"></p>
-<p>コードエディタのコードをすべて選択して以下のコードで上書きします。</p>
-<pre><code class="lang-js"><span class="hljs-comment">// LINE Bot SDK ライブラリの読み込み</span>
-<span class="hljs-keyword">const</span> line = <span class="hljs-built_in">require</span>(<span class="hljs-string">&apos;@line/bot-sdk&apos;</span>);
-
-<span class="hljs-comment">// チャンネルアクセストークンとチャネルシークレット設定</span>
-<span class="hljs-keyword">const</span> config = {
-    <span class="hljs-attr">channelAccessToken</span>: <span class="hljs-string">&apos;channelAccessToken&apos;</span>,
-    <span class="hljs-attr">channelSecret</span>:  <span class="hljs-string">&apos;channelSecret&apos;</span>,
-};
-
-<span class="hljs-comment">// LINE Bot SDK ライブラリを呼び出しつつ設定</span>
-<span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> line.Client(config);
-
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">context, req</span>) </span>{
-    context.log(<span class="hljs-string">&apos;LINE Bot start...&apos;</span>);
-    <span class="hljs-keyword">if</span> (req.query.message || (req.body &amp;&amp; req.body.events)) {
-        <span class="hljs-keyword">if</span> (req.body &amp;&amp; req.body.events[<span class="hljs-number">0</span>]) {
-            <span class="hljs-comment">// 返答用に受信したメッセージをそのまま入れてオウム返しに</span>
-            <span class="hljs-keyword">const</span> message = {
-                <span class="hljs-attr">type</span>: <span class="hljs-string">&quot;text&quot;</span>,
-                <span class="hljs-attr">text</span>: req.body.events[<span class="hljs-number">0</span>].message.text
-            }
-            context.log(message);
-            <span class="hljs-comment">// 実際に LINE にオウム返しする処理</span>
-            <span class="hljs-keyword">if</span> (req.body.events[<span class="hljs-number">0</span>].replyToken) {
-                client.replyMessage(
-                    req.body.events[<span class="hljs-number">0</span>].replyToken,
-                    message
-                );
-            }
-        } <span class="hljs-keyword">else</span> {
-            context.res = {
-                <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-                <span class="hljs-attr">body</span>: req.query.message
-            };
-        }
-    }
-    <span class="hljs-keyword">else</span> {
-        <span class="hljs-comment">// LINE 以外のアクセスだとこちらを返信（ブラウザ確認用）</span>
-        context.res = {
-            <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-            <span class="hljs-attr">body</span>: <span class="hljs-string">&quot;Hello! LINE Bot + Azure Functions!&quot;</span>
-        };
-    };
-};
-</code></pre>
-<p>上書きできたら、LINE Bot の設定を反映します。</p>
-<pre><code class="lang-js"><span class="hljs-comment">// チャンネルアクセストークンとチャネルシークレット設定</span>
-<span class="hljs-keyword">const</span> config = {
-    <span class="hljs-attr">channelAccessToken</span>: <span class="hljs-string">&apos;channelAccessToken&apos;</span>,
-    <span class="hljs-attr">channelSecret</span>:  <span class="hljs-string">&apos;channelSecret&apos;</span>,
-};
-</code></pre>
-<p>こちらに注目します。</p>
-<pre><code class="lang-js">channelAccessToken: <span class="hljs-string">&apos;channelAccessToken&apos;</span>,
-</code></pre>
-<p><code>&apos;channelAccessToken&apos;</code> のところのシングルクオーテーションの中を、今回動かしたい LINE Bot のチャネルアクセストークンに書き換えます。</p>
-<p>もし、チャネルアクセストークンが <code>ABCDEFG</code> の場合は、両脇のシングルクオーテーションを
-残して書き換えるので <code>&apos;ABCDEFG&apos;</code> になります。</p>
-<pre><code class="lang-js">channelSecret:  <span class="hljs-string">&apos;channelSecret&apos;</span>,
-</code></pre>
-<p><code>&apos;channelSecret&apos;</code> のところのシングルクオーテーションの中を、今回動かしたい LINE Bot のチャネルシークレットに書き換えます。</p>
-<p>もし、チャネルシークレットが <code>12345678</code> の場合は、両脇のシングルクオーテーションを
-残して書き換えるので <code>&apos;12345678&apos;</code> になります。</p>
-<p><img src="https://i.gyazo.com/bcad6ed750b219a54afe8b6391221519.png" alt="bcad6ed750b219a54afe8b6391221519"></p>
-<p>設定できたらコードを保存します。</p>
-<p><img src="https://i.gyazo.com/31eede8af66e81f55fced6d86b4d749f.png" alt="31eede8af66e81f55fced6d86b4d749f"></p>
-<p>正しく入力されていれば channelSecret は文字数が少なく、channelAccessToken は文字数が多いものになります。</p>
-<p>📝参考資料</p>
-<ul>
-<li>Azure FunctionsでLINE Bot作成 - Qiita<ul>
-<li><a href="https://qiita.com/RyogaTakao/items/a86522d560178f83652c" target="_blank">https://qiita.com/RyogaTakao/items/a86522d560178f83652c</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="関数-url-を取得して動作確認"><a name="関数-url-を取得して動作確認" class="plugin-anchor" href="#関数-url-を取得して動作確認"><i class="fa fa-link" aria-hidden="true"></i></a>関数 URL を取得して動作確認</h2>
-<p><img src="https://i.gyazo.com/d77d17fdd71d8cf2c7b0e3e0e6b1ded9.png" alt="d77d17fdd71d8cf2c7b0e3e0e6b1ded9"></p>
-<p>関数 URL の取得ボタンをクリックします。default のキーの URL 値を確認します。</p>
-<p><img src="https://i.gyazo.com/18d333595f02ff206ecc40b124a6ba86.png" alt="18d333595f02ff206ecc40b124a6ba86"></p>
-<p>こちらのコピーボタンをクリックします。この関数の URL がコピーされます。</p>
-<p><img src="https://i.gyazo.com/f3c959956ce0553918d905f998c03478.png" alt="f3c959956ce0553918d905f998c03478"></p>
-<p>ブラウザで別タブを表示して URL をアドレスバーにペーストして Enter キーを押してアクセスしてみましょう。このような画面が表示されていれば、上手く動作しています！</p>
-<h2 id="line-developers-の設定"><a name="line-developers-の設定" class="plugin-anchor" href="#line-developers-の設定"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Developers の設定</h2>
-<p><img src="https://i.gyazo.com/8b4d67be0c5d4d5008b9e3b0722b2034.png" alt="8b4d67be0c5d4d5008b9e3b0722b2034"></p>
-<p>LINE Developers にアクセスして、今回動かしたい LINE Bot の設定ページにアクセスして Messaging API 設定 のページに移動します。</p>
-<p><img src="https://i.gyazo.com/8e6c534186195512b410b3b938602003.png" alt="8e6c534186195512b410b3b938602003"></p>
-<p>スクロールして Webhook 設定 を探します。 Webhook の利用がオンになっていることを確認しましょう。確認できたら編集ボタンをクリックします。</p>
-<p><img src="https://i.gyazo.com/f6e00659e0e5ad7f6ed1abbba9d89c8a.png" alt="f6e00659e0e5ad7f6ed1abbba9d89c8a"></p>
-<p>Webhook URL が編集できるので、さきほど確認した今回の関数 URL をペーストして更新ボタンをクリックします。</p>
-<p>これで LINE Bot の設定は完了です！</p>
+                                <h1 id="あとかたづけ"><a name="あとかたづけ" class="plugin-anchor" href="#あとかたづけ"><i class="fa fa-link" aria-hidden="true"></i></a>あとかたづけ</h1>
+<p>ハンズオンが終わったら、あとかたづけをしましょう。</p>
+<p>Azure Functions ・ LINE Bot ・ ChatGPT はそれぞれ使った分だけ課金される「従量課金」ですので、このまま使わなければお金はかかりませんが、以下は、より確実にあとかたづけをする方法です。</p>
+<h2 id="azure-functions-の削除"><a name="azure-functions-の削除" class="plugin-anchor" href="#azure-functions-の削除"><i class="fa fa-link" aria-hidden="true"></i></a>Azure Functions の削除</h2>
+<p><img src="https://i.gyazo.com/de9795bfe1f6c74979ba924c6e7a5f4c.png" alt="de9795bfe1f6c74979ba924c6e7a5f4c"></p>
+<p>今回作成した Azure Function の概要ページを左メニューから選んで概要ページが表示されたら、上部のメニューから削除ボタンをクリックします。</p>
+<p>画面が小さいとメニューが省略されている場合があるので ・・・ ボタンをクリックして隠れた削除ボタンを探しましょう。</p>
+<p><img src="https://i.gyazo.com/9a3b174627159ede249bd2e7fbf2eeb0.png" alt="9a3b174627159ede249bd2e7fbf2eeb0"></p>
+<p>クリックすると削除ウィンドウがでてくるので、アプリ名を入れます。</p>
+<p><img src="https://i.gyazo.com/fa37fb387e7a4345ee83b5de92184217.png" alt="fa37fb387e7a4345ee83b5de92184217"></p>
+<p>正しくアプリ名を入れたら削除できるので削除ボタンをクリックします。しばらく待つと削除されます。</p>
+<p>念のため、すべてのリソース一覧などでしっかり消えたか確認しておきましょう。</p>
+<h2 id="chatgpt-の-api-キーの削除"><a name="chatgpt-の-api-キーの削除" class="plugin-anchor" href="#chatgpt-の-api-キーの削除"><i class="fa fa-link" aria-hidden="true"></i></a>ChatGPT の API キーの削除</h2>
+<p>View API key ページ <a href="https://platform.openai.com/account/api-keys" target="_blank">https://platform.openai.com/account/api-keys</a> にアクセスします。</p>
+<p><img src="https://i.gyazo.com/3165179b4f12d94b7e9b068d6e181a27.png" alt="3165179b4f12d94b7e9b068d6e181a27"></p>
+<p>キーの一覧から、今回使った API キーの列のゴミ箱ボタンをクリックします。</p>
+<p><img src="https://i.gyazo.com/c8d14b8fcb87687784acf0dc2bb4eb95.png" alt="c8d14b8fcb87687784acf0dc2bb4eb95"></p>
+<p>Revoke secret key ウィンドウで、今回のキーを削除してよければ Revoke key ボタンをクリックします。</p>
+<p>これで削除完了です。さきほどのキーの一覧から今回のキーが消えたか確認しましょう。</p>
+<h2 id="line-bot"><a name="line-bot" class="plugin-anchor" href="#line-bot"><i class="fa fa-link" aria-hidden="true"></i></a>LINE Bot</h2>
+<p>前述の Azure Functions や ChatGPT の API キーの削除が終わっていれば、基本的に動作することはありませんが、どうしても削除したい場合は、</p>
+<p><img src="https://i.gyazo.com/37f2f7a635b67f6f21aa8d6f08f7ba85.png" alt="37f2f7a635b67f6f21aa8d6f08f7ba85"></p>
+<p><a href="https://developers.line.biz/ja/docs/messaging-api/stop-using-line-official-account/" target="_blank">https://developers.line.biz/ja/docs/messaging-api/stop-using-line-official-account/</a></p>
+<p>こちらの記事を参考に、チャネルの削除を行えば、LINE Bot が削除できます。</p>
 
                                 
                                 </section>
@@ -504,12 +430,12 @@
 
             
                 
-                <a href="04-linebot-and-openai-install.html" class="navigation navigation-prev " aria-label="Previous page: 必要ライブラリのインストール">
+                <a href="09-chatgpt-check.html" class="navigation navigation-prev " aria-label="Previous page: LINE Bot で ChatGPT 応答を試す">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="06-line-bot-check.html" class="navigation navigation-next " aria-label="Next page: LINE Bot でオウム返しを試す">
+                <a href="99-extra/98-troubleshooting.html" class="navigation navigation-next " aria-label="Next page: トラブルシューティング">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -520,7 +446,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"LINE Bot に設定を反映","level":"1.7","depth":1,"next":{"title":"LINE Bot でオウム返しを試す","level":"1.8","depth":1,"path":"06-line-bot-check.md","ref":"06-line-bot-check.md","articles":[]},"previous":{"title":"必要ライブラリのインストール","level":"1.6","depth":1,"path":"04-linebot-and-openai-install.md","ref":"04-linebot-and-openai-install.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~","language":"ja","gitbook":"*","description":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~"},"file":{"path":"05-line-bot-setting.md","mtime":"2023-06-21T01:48:38.562Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-07-12T10:37:10.825Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"あとかたづけ","level":"1.12","depth":1,"next":{"title":"トラブルシューティング","level":"1.13","depth":1,"path":"99-extra/98-troubleshooting.md","ref":"99-extra/98-troubleshooting.md","articles":[]},"previous":{"title":"LINE Bot で ChatGPT 応答を試す","level":"1.11","depth":1,"path":"09-chatgpt-check.md","ref":"09-chatgpt-check.md","articles":[]},"dir":"ltr"},"config":{"plugins":["anchors","hide-published-with","copy-code-button","intopic-toc","back-to-top-button"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"intopic-toc":{"selector":".markdown-section h1, .markdown-section h2, .markdown-section h3, .markdown-section h4, .markdown-section h5, .markdown-section h6","mode":"nested","maxDepth":6,"isCollapsed":true,"isScrollspyActive":true,"visible":true,"label":"In this article"},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"hide-published-with":{},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"back-to-top-button":{},"copy-code-button":{},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~","language":"ja","gitbook":"*","description":"学生ハンズオン ~ChatGPTを使ったLINE BotをAzureで作成してみよう！~"},"file":{"path":"98-finish-work.md","mtime":"2023-07-12T10:32:13.613Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-07-12T10:37:10.825Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
